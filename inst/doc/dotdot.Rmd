@@ -1,0 +1,73 @@
+---
+title: "dotdot"
+author: "Antoine Fabri"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+This package proposes an enhanced assignment using the shorthand  `..`.
+
+It's meant to :
+
+* Be explicit about growing an object or overwriting it using its previous value
+* Avoid repeating a variable name
+* Save keystrokes/time/visual space/cognitive load
+
+```{r}
+library(dotdot)
+x <- y <- iris
+x$Sepal.Length[5] <- x$Sepal.Length[5] + 3
+y$Sepal.Length[5] := .. + 3
+identical(x,y)
+
+z <- factor(letters[1:3])
+levels(z) := c(.., "level4")
+z
+```
+
+It can help to think about the `..` as the `:` of the `:=` symbol laid horizontally.
+
+## Integration with *`data.table`*, *`tidyverse`* and other packages using `:=`
+
+The operator `:=` is used by prominent packages *`data.table`* and *`rlang`*
+ (mostly through *`tidyverse`* functions), but they only use it to parse expressions, 
+ due to its convenient operator precedence. It's not actually called. 
+ 
+Thus *`dotdot`* is completely *`tidyverse`* and *`data.table`* compatible, and
+some adhoc adjustments were made so it works when the latter are attached
+after *`dotdot`*.
+
+In the rare case in which the user would attach another package containing `:=`,
+`dotdot_first()` will move back *`dotdot`* at the first position of the search
+path.
+
+## Comparison with magrittr's `%<>%`
+
+The package *`magrittr`* contains the operator `%<>%` which share important
+similarities with `:=`. 
+
+The calls `iris$Sepal.Length %<>% log()` and `iris$Sepal.Length := log(..)` 
+indeed have the same effect.
+
+The operator precedence is different however, which makes *`dotdot`* arguably
+better suited outside of pipe chains, for instance
+`iris$Sepal.Length[5] := 2*.. + 3` would have to be written
+`iris$Sepal.Length[5] %<>% multiply_by(2) %>% add(3)` or 
+`iris$Sepal.Length[5] %<>% {2*. + 3}` using *`magrittr`*.
+
+Furthermore *`magrittr`* is more complex in the way it deals with environments
+while *`dotdot`* makes straightforward substitutions, so `x := substitute(..)`
+works and doesn't have a *`magrittr`* equivalent.

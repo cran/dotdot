@@ -1,0 +1,14 @@
+e8d011f5a0650763379b499f2d4e5853 *DESCRIPTION
+1b8a8768d41d6618f7f07cbc52fdc92e *NAMESPACE
+36909710e27750e6559681e116ff9e80 *R/dotdot-package.R
+4d86fc480638a8580123cc0a387e5842 *R/dotdot.R
+1951f46ddd9ace495c46d8b1c0503fe6 *R/zz.R
+cc2bf0020e217c90f0c8058f36ca7fe5 *README.md
+409525c534092959ccbaa7659ebb4ebc *build/vignette.rds
+91841aa1f301b7670cd659aa21053eed *inst/doc/dotdot.R
+9badcb99a49eb76d6a3181ff2953aebe *inst/doc/dotdot.Rmd
+a33f2ad76f820cb42496e82cd08c76e0 *inst/doc/dotdot.html
+72868bd06e63b59f44bd85ebd3ffa243 *man/colon-equals.Rd
+4a99e03f590df7f9137559c96b80357e *man/dotdot-package.Rd
+924de7f1c6bfa07fd3bcf79b584ee609 *man/dotdot_first.Rd
+9badcb99a49eb76d6a3181ff2953aebe *vignettes/dotdot.Rmd
